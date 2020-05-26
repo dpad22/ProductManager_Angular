@@ -8,7 +8,7 @@ import { Router, ActivatedRoute } from "@angular/router";
   styleUrls: ['./edit-product.component.scss']
 })
 export class EditProductComponent implements OnInit {
-  id = "";
+  _id = "";
   productData: any;
   editProduct: any;
   error = "";
@@ -19,21 +19,33 @@ export class EditProductComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.id = this.route.snapshot.paramMap.get("id");
+    this._id = this.route.snapshot.paramMap.get("id");
     this.getOneProduct();
-    this.editProduct = { title: "", price: 0, url: "" };
+    this.editProduct = { title: "", price: null, url: "" };
+
   }
   getOneProduct() {
-    let observable = this._httpService.getProduct(this.id);
+    let observable = this._httpService.getProduct(this._id);
     observable.subscribe((data) => {
       this.productData = data;
+      console.log(data)
+      console.log("getOneProduct above")
     });
   }
 
   onEdit() {
-    let observable = this._httpService.editProduct(this.id, this.editProduct);
+    console.log(this._id)
+    console.log(this.editProduct)
+    console.log("***********")
+    let observable = this._httpService.editProduct(this._id, this.editProduct);
     observable.subscribe((data) => {
       this.getOneProduct();
+      this._router.navigate(["products"]);
+    });
+  }
+  onDelete(_id) {
+    const observable = this._httpService.deleteProduct(_id);
+    observable.subscribe((data) => {
       this._router.navigate(["products"]);
     });
   }

@@ -1,0 +1,34 @@
+<h4>Reviews</h4>
+<div *ngIf="productData" class="container">
+  <!-- <p>{{productData | json}}</p> -->
+  <b>
+    <p>Submit a review for {{productData.title}}: </p>
+  </b>
+
+  <form class="border">
+    <div class="form-group">
+      <label for="customer">Customer:</label>
+      <p class="errorMsg" *ngIf="addReview.customer.length < 3">Customer Name must be at least 3 characters long!</p>
+      <input type="text" name="customer" class="form-control" id="name" [(ngModel)]="addReview.customer">
+    </div>
+    <div class="form-group">
+      <label for="stars">Rating:</label>
+      <select name="stars" type="Number" id="stars" [(ngModel)]="addReview.stars">
+        <option value="5">5 Stars</option>
+        <option value="4">4 Stars</option>
+        <option value="3">3 Stars</option>
+        <option value="2">2 Stars</option>
+        <option value="1">1 Stars</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <p class="errorMsg" *ngIf="addReview.comment.length < 3">Comments must be at least 3 characters long!</p>
+      <textarea name="comment" cols="100" rows="10" placeholder="Type comment here"
+        [(ngModel)]="addReview.comment"></textarea>
+    </div>
+    <div class="form-group">
+      <button class="btn btn-danger" id="cancel" [routerLink]="['/products', productData._id]">Cancel</button>
+      <button class="btn btn-primary" id="submit" (click)="submitReview()"[disabled]="addReview.customer.length < 3 || addReview.comment.length < 3">Submit</button>
+    </div>
+  </form>
+</div>

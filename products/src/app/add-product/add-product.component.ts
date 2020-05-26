@@ -9,6 +9,8 @@ import { Router } from "@angular/router";
 })
 export class AddProductComponent implements OnInit {
   products = [];
+  title = String;
+  price = Number;
   addProduct: any;
   error = "";
 

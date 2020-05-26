@@ -12,7 +12,7 @@ app.use(express.static(__dirname + '/products/dist/products'))
 app.use(express.json())
 app.use(express.urlencoded({extended:true}));
 
-require('./server/config/routes.js')(app)
+require('./server/config/routes.js')(app);
 
 
 app.listen(8000, () => console.log("listening on port 8000. ProductApp!"));

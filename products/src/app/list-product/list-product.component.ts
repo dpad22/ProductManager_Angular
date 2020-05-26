@@ -23,8 +23,8 @@ export class ListProductComponent implements OnInit {
       this.products = data;
     });
   }
-  onDelete(id) {
-    const observable = this._httpService.deleteProduct(id);
+  onDelete(_id) {
+    const observable = this._httpService.deleteProduct(_id);
     observable.subscribe((data) => {
       this.router.navigate([""]);
     });
